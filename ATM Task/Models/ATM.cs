@@ -47,6 +47,8 @@ namespace ATM_Task.Models
             {
                 if (this.bills.TryGetValue(billCount.Key, out int value))
                 {
+                    if (billCount.Value < 0)
+                        throw new InvalidOperationException("Enter positive bill values.");
                     if (value + billCount.Value > cassetteCapacity)
                     {
                         throw new InvalidOperationException("Exceeded bill capacity");
@@ -73,6 +75,10 @@ namespace ATM_Task.Models
             if (userBalance < amount)
             {
                 throw new InvalidOperationException("Insufficient user balance");
+            }
+            if (amount < 0)
+            {
+                throw new InvalidOperationException("Negative value");
             }
 
             var selectedBills = SelectBills(amount, preferLargeDenominations);

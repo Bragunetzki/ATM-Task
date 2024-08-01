@@ -87,6 +87,18 @@ namespace ATM_Tests
             Assert.Throws<InvalidOperationException>(() => atm.Deposit(depositBills));
         }
 
+        public void TestDeposit_NegativeCounts()
+        {
+            var initialBalance = atm.GetUserBalance();
+            var currentBills = atm.GetBills();
+            var depositBills = new Dictionary<BillDenomination, int>
+            {
+                { BillDenomination.Hundred, -5 }
+            };
+
+            Assert.Throws<InvalidOperationException>(() => atm.Deposit(depositBills));
+        }
+
         [Test]
         public void TestDeposit_PreferLarge()
         {
